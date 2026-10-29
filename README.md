@@ -4,9 +4,6 @@ A small FastAPI project for keeping track of subjects, assessments and student s
 A teacher can add subjects, assessments and scores, update a result, and check averages.
 Students can log in and see only their own results.
 
-Data is kept in memory (Python dictionaries), so it resets every time the server restarts.
-I kept it like this so the project stays simple. A real school system would use a database.
-
 ## What's in the repo
 
 | File / Folder | What it is |
