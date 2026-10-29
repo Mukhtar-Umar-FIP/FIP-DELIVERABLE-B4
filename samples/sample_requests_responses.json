@@ -1,0 +1,127 @@
+{
+  "note": "These are real responses I got when testing the API in order, logged in as the teacher unless it says otherwise.",
+  "examples": [
+    {
+      "name": "Add a subject",
+      "request": { "method": "POST", "url": "/subjects", "body": { "name": "mathematics" } },
+      "response": { "status": 201, "body": { "name": "Mathematics", "id": 1 } }
+    },
+    {
+      "name": "Add the same subject again",
+      "request": { "method": "POST", "url": "/subjects", "body": { "name": "Mathematics" } },
+      "response": { "status": 409, "body": { "detail": "Subject 'Mathematics' already exists" } }
+    },
+    {
+      "name": "Add a student",
+      "request": { "method": "POST", "url": "/students", "body": { "student_id": "STU001", "full_name": "Aisha Bello", "password": "aisha123" } },
+      "response": { "status": 201, "body": { "student_id": "STU001", "full_name": "Aisha Bello" } }
+    },
+    {
+      "name": "Add a student with a bad ID and short name",
+      "request": { "method": "POST", "url": "/students", "body": { "student_id": "abc", "full_name": "Al", "password": "123456" } },
+      "response": {
+        "status": 422,
+        "body": {
+          "detail": [
+            { "type": "string_pattern_mismatch", "loc": ["body", "student_id"], "msg": "String should match pattern '^STU\\d{3}$'", "input": "abc", "ctx": { "pattern": "^STU\\d{3}$" } },
+            { "type": "string_too_short", "loc": ["body", "full_name"], "msg": "String should have at least 3 characters", "input": "Al", "ctx": { "min_length": 3 } }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Add an assessment",
+      "request": { "method": "POST", "url": "/assessments", "body": { "subject_id": 1, "title": "First Test", "max_score": 20 } },
+      "response": { "status": 201, "body": { "subject_id": 1, "title": "First Test", "max_score": 20.0, "id": 1 } }
+    },
+    {
+      "name": "Add a score",
+      "request": { "method": "POST", "url": "/scores", "body": { "student_id": "STU001", "assessment_id": 1, "score": 15 } },
+      "response": { "status": 201, "body": { "id": 1, "student_id": "STU001", "assessment_id": 1, "score": 15.0 } }
+    },
+    {
+      "name": "Score higher than max score",
+      "request": { "method": "POST", "url": "/scores", "body": { "student_id": "STU001", "assessment_id": 1, "score": 25 } },
+      "response": { "status": 422, "body": { "detail": "Score 25.0 is higher than the max score (20.0) for this assessment" } }
+    },
+    {
+      "name": "Negative score",
+      "request": { "method": "POST", "url": "/scores", "body": { "student_id": "STU001", "assessment_id": 1, "score": -5 } },
+      "response": {
+        "status": 422,
+        "body": { "detail": [ { "type": "greater_than_equal", "loc": ["body", "score"], "msg": "Input should be greater than or equal to 0", "input": -5, "ctx": { "ge": 0.0 } } ] }
+      }
+    },
+    {
+      "name": "Same student, same assessment again",
+      "request": { "method": "POST", "url": "/scores", "body": { "student_id": "STU001", "assessment_id": 1, "score": 10 } },
+      "response": { "status": 409, "body": { "detail": "STU001 already has a score for this assessment (score id 1). Use PUT to update it." } }
+    },
+    {
+      "name": "Update a score",
+      "request": { "method": "PUT", "url": "/scores/1", "body": { "score": 18 } },
+      "response": { "status": 200, "body": { "id": 1, "student_id": "STU001", "assessment_id": 1, "score": 18.0 } }
+    },
+    {
+      "name": "Update a score that doesn't exist",
+      "request": { "method": "PUT", "url": "/scores/99", "body": { "score": 18 } },
+      "response": { "status": 404, "body": { "detail": "Score 99 not found" } }
+    },
+    {
+      "name": "Get a student's results",
+      "request": { "method": "GET", "url": "/students/STU001/results" },
+      "response": {
+        "status": 200,
+        "body": {
+          "student_id": "STU001",
+          "full_name": "Aisha Bello",
+          "results": [
+            { "score_id": 1, "subject": "Mathematics", "assessment": "First Test", "score": 18.0, "max_score": 20.0, "percentage": 90.0 },
+            { "score_id": 2, "subject": "Mathematics", "assessment": "Exam", "score": 48.0, "max_score": 60.0, "percentage": 80.0 },
+            { "score_id": 3, "subject": "English", "assessment": "First Test", "score": 14.0, "max_score": 20.0, "percentage": 70.0 }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get a student's average",
+      "request": { "method": "GET", "url": "/students/STU001/average" },
+      "response": {
+        "status": 200,
+        "body": {
+          "student_id": "STU001",
+          "overall_average": 77.5,
+          "subjects": [
+            { "subject": "Mathematics", "average_percentage": 85.0 },
+            { "subject": "English", "average_percentage": 70.0 }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Class average for a subject",
+      "request": { "method": "GET", "url": "/subjects/1/average" },
+      "response": { "status": 200, "body": { "subject": "Mathematics", "number_of_scores": 3, "class_average": 76.67 } }
+    },
+    {
+      "name": "Student STU002 tries to view STU001's results",
+      "request": { "method": "GET", "url": "/students/STU001/results", "auth": "STU002 / musa123" },
+      "response": { "status": 403, "body": { "detail": "You can only view your own results" } }
+    },
+    {
+      "name": "Student tries to add a score",
+      "request": { "method": "POST", "url": "/scores", "auth": "STU002 / musa123", "body": { "student_id": "STU002", "assessment_id": 1, "score": 20 } },
+      "response": { "status": 403, "body": { "detail": "Only the teacher can do this" } }
+    },
+    {
+      "name": "Wrong password",
+      "request": { "method": "GET", "url": "/students/STU001/results", "auth": "teacher / wrong" },
+      "response": { "status": 401, "body": { "detail": "Incorrect username or password" } }
+    },
+    {
+      "name": "Student that doesn't exist",
+      "request": { "method": "GET", "url": "/students/STU009/results" },
+      "response": { "status": 404, "body": { "detail": "Student STU009 not found" } }
+    }
+  ]
+}

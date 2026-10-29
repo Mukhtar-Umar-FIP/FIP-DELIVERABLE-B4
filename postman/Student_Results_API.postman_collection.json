@@ -1,0 +1,820 @@
+{
+  "info": {
+    "name": "Student Results API (FIP B4)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Run the folders in order. Logged in as teacher by default (collection auth)."
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "teacher",
+        "type": "string"
+      },
+      {
+        "key": "password",
+        "value": "teacher123",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:8000"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": []
+        },
+        "auth": {
+          "type": "noauth"
+        }
+      }
+    },
+    {
+      "name": "1. Subjects",
+      "item": [
+        {
+          "name": "Add subject - Mathematics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/subjects",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "subjects"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mathematics\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Add subject - English",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/subjects",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "subjects"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"English\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "List subjects",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/subjects",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "subjects"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Students",
+      "item": [
+        {
+          "name": "Add student - STU001",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"STU001\",\n  \"full_name\": \"Aisha Bello\",\n  \"password\": \"aisha123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Add student - STU002",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"STU002\",\n  \"full_name\": \"Musa Ibrahim\",\n  \"password\": \"musa123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "List students",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Assessments",
+      "item": [
+        {
+          "name": "Add assessment - Maths First Test",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/assessments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "assessments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject_id\": 1,\n  \"title\": \"First Test\",\n  \"max_score\": 20\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Add assessment - Maths Exam",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/assessments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "assessments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject_id\": 1,\n  \"title\": \"Exam\",\n  \"max_score\": 60\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Add assessment - English First Test",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/assessments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "assessments"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"subject_id\": 2,\n  \"title\": \"First Test\",\n  \"max_score\": 20\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "List assessments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/assessments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "assessments"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Scores",
+      "item": [
+        {
+          "name": "Add score - STU001 Maths Test",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scores",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "scores"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"STU001\",\n  \"assessment_id\": 1,\n  \"score\": 15\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Add score - STU001 Maths Exam",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scores",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "scores"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"STU001\",\n  \"assessment_id\": 2,\n  \"score\": 48\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Add score - STU001 English Test",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scores",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "scores"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"STU001\",\n  \"assessment_id\": 3,\n  \"score\": 14\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Add score - STU002 Maths Test",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scores",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "scores"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"STU002\",\n  \"assessment_id\": 1,\n  \"score\": 12\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Update score 1",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scores/1",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "scores",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"score\": 18\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Results and averages",
+      "item": [
+        {
+          "name": "Student results (teacher)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/STU001/results",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "STU001",
+                "results"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Student average (teacher)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/STU001/average",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "STU001",
+                "average"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Subject class average",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/subjects/1/average",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "subjects",
+                "1",
+                "average"
+              ]
+            }
+          }
+        },
+        {
+          "name": "My results (logged in as STU001)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/STU001/results",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "STU001",
+                "results"
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "STU001",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "aisha123",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Error examples",
+      "item": [
+        {
+          "name": "401 - wrong password",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/subjects",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "subjects"
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "teacher",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "wrong",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "403 - student viewing another student",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/STU001/results",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "STU001",
+                "results"
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "STU002",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "musa123",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "403 - student adding a score",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scores",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "scores"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"STU002\",\n  \"assessment_id\": 1,\n  \"score\": 20\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "STU002",
+                  "type": "string"
+                },
+                {
+                  "key": "password",
+                  "value": "musa123",
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "404 - student not found",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/students/STU009/results",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students",
+                "STU009",
+                "results"
+              ]
+            }
+          }
+        },
+        {
+          "name": "409 - duplicate score",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scores",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "scores"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"STU001\",\n  \"assessment_id\": 1,\n  \"score\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "422 - score above max",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scores",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "scores"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"STU001\",\n  \"assessment_id\": 1,\n  \"score\": 25\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "422 - negative score",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/scores",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "scores"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"STU001\",\n  \"assessment_id\": 1,\n  \"score\": -5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "422 - bad student id",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/students",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "students"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": \"abc\",\n  \"full_name\": \"Al\",\n  \"password\": \"123456\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
